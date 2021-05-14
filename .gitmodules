@@ -1,0 +1,3 @@
+[submodule "src/minizip-ng"]
+	path = src/minizip-ng
+	url = https://github.com/vaedermakar/minizip-ng
