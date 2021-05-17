@@ -15,6 +15,7 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
+        icons.qrc
         EntriesManager.cpp
         EntriesManager.h
         EntriesModel.cpp
@@ -48,5 +49,4 @@ target_link_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs)
 target_link_libraries(${PROJECT_NAME} PUBLIC minizip)
 #target_link_libraries(${PROJECT_NAME} PUBLIC bzip2)
 
-############################################################################
 add_subdirectory(minizip-ng/)
