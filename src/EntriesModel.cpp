@@ -55,18 +55,18 @@ QVariant EntriesModel::data(const QModelIndex &index, int32_t role) const
     {
     case Qt::DisplayRole:
     {
-        //auto& row = _data[index.row()];
-        //return QVariant::fromValue((index.column() == 0)
-        //                           ? row.first : QString::number(row.second));
+        auto& row = _data[index.row()];
+        return QVariant::fromValue((index.column() == 0)
+                                   ? row.first : QString::number(row.second));
 
-        if (index.column() == 0)
+        /*if (index.column() == 0)
         {
             return _data[index.row()].first;
         }
         else if (index.column() == 1)
         {
             return _data[index.row()].second;
-        }
+        }*/
         break;
     }
     case Qt::DecorationRole:
