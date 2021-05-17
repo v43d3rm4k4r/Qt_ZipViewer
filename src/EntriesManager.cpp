@@ -66,6 +66,7 @@ void EntriesManager::getAllEntries(Entries_t& entries)
     if (err == MZ_OK)
     {
         do {
+            qDebug() << "getAllEntries()";
             mz_zip_file* file_info = nullptr;
             if (::mz_zip_reader_entry_get_info(_zip_reader, &file_info) != MZ_OK)
             {
@@ -75,9 +76,8 @@ void EntriesManager::getAllEntries(Entries_t& entries)
 
             if (::mz_zip_reader_entry_is_dir(_zip_reader) != MZ_OK)
             {
-                entries.append(Entries_t());
-                entries[entries_count].first  = file_info->filename;
-                entries[entries_count].second = file_info->uncompressed_size;
+                QPair<QString, int64_t> temp(file_info->filename, file_info->uncompressed_size);
+                entries.append(temp);
                 ++entries_count;
             }
 
