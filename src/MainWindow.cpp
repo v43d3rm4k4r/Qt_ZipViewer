@@ -20,11 +20,11 @@ MainWindow::MainWindow(QWidget* parent)
     _file_dialog->setFileMode(QFileDialog::ExistingFile);
 
     connect(ui->pushButtonFileDialog, &QAbstractButton::clicked,
-                this, &MainWindow::on_pushButtonFileDialog_clicked
+                this, &MainWindow::pushButtonFileDialog_clicked
                 );
 
     connect(ui->pushButtonOpenArchive, &QAbstractButton::clicked,
-            this, &MainWindow::on_pushButtonOpenArchive_clicked
+            this, &MainWindow::pushButtonOpenArchive_clicked
             );
 
     connect(_file_dialog, &QFileDialog::urlSelected,
@@ -44,17 +44,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 //=================================================================================================
-void MainWindow::on_pushButtonOpenArchive_clicked()
+void MainWindow::pushButtonOpenArchive_clicked()
 {
     // проверяем путь до файла, передаём в конструктор
     QString path = ui->lineEditPathToArchive->text();
     if (path.isEmpty())
     {
         QMessageBox::warning(this, tr("Ошибка"),
-                             tr("Укажите для сохранения результатов вычислений."));
+                             tr("Введите путь до архива."));
         return;
     }
-    //std::regex re("\\.zip$");
     if (!path.contains(".zip"))
     {
         QMessageBox::warning(this, tr("Ошибка"),
@@ -106,7 +105,7 @@ void MainWindow::on_pushButtonOpenArchive_clicked()
     // опционально: делаем делегат
 }
 //=================================================================================================
-void MainWindow::on_pushButtonFileDialog_clicked()
+void MainWindow::pushButtonFileDialog_clicked()
 {
     _file_dialog->exec();
 }
