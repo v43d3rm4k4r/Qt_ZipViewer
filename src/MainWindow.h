@@ -21,7 +21,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButtonOpenArchive_clicked();
-    void on_pushButtonFileDialog_clicked();
+    void pushButtonOpenArchive_clicked();
+    void pushButtonFileDialog_clicked();
     void urlSelected(const QUrl&);
 };
