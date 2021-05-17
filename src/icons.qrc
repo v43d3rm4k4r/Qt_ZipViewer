@@ -1,0 +1,6 @@
+<RCC>
+    <qresource>
+        <file>icons/Confirm.png</file>
+        <file>icons/Dir.png</file>
+    </qresource>
+</RCC>
