@@ -43,7 +43,7 @@ bool EntriesManager::getMmapUse() const
     return _mmap_use;
 }
 //=================================================================================================
-void EntriesManager::getAllEntries(QList<QPair<QString, int64_t>>& entries)
+void EntriesManager::getAllEntries(Entries_t& entries)
 {
     ::mz_zip_reader_create(&_zip_reader);
 
@@ -52,7 +52,6 @@ void EntriesManager::getAllEntries(QList<QPair<QString, int64_t>>& entries)
         if (::mz_zip_reader_open_file_in_memory(_zip_reader, _zip_file_path.c_str()) != MZ_OK)
         {
             throw EntriesManagerException(EntriesManagerException::OpenFileError);
-            ::mz_zip_reader_delete(&_zip_reader);
         }
     }
     else
@@ -60,7 +59,6 @@ void EntriesManager::getAllEntries(QList<QPair<QString, int64_t>>& entries)
         if (::mz_zip_reader_open_file(&_zip_reader, _zip_file_path.c_str()) != MZ_OK)
         {
             throw EntriesManagerException(EntriesManagerException::OpenFileError);
-            ::mz_zip_reader_delete(&_zip_reader);
         }
     }
     uint32_t entries_count = 0;
@@ -73,18 +71,15 @@ void EntriesManager::getAllEntries(QList<QPair<QString, int64_t>>& entries)
             {
                 throw EntriesManagerException(EntriesManagerException::GetInfoError,
                                               std::to_string(entries_count).c_str());
-                break;
             }
 
             if (::mz_zip_reader_entry_is_dir(_zip_reader) != MZ_OK)
             {
-                entries.append(QPair<QString, int64_t>());
+                entries.append(Entries_t());
                 entries[entries_count].first  = file_info->filename;
                 entries[entries_count].second = file_info->uncompressed_size;
                 ++entries_count;
             }
-
-
 
         } while (::mz_zip_reader_goto_next_entry(_zip_reader) == MZ_OK);
     }
