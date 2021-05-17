@@ -46,7 +46,7 @@ target_link_libraries(Qt_ZipViewer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/minizip-ng)
 target_link_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs)
 target_link_libraries(${PROJECT_NAME} PUBLIC minizip)
-target_link_libraries(${PROJECT_NAME} PUBLIC bzip2)
+#target_link_libraries(${PROJECT_NAME} PUBLIC bzip2)
 
 ############################################################################
 add_subdirectory(minizip-ng/)
