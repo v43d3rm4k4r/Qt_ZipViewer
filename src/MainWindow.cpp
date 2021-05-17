@@ -5,8 +5,6 @@
 
 #include <QMessageBox>
 
-#include <regex>
-
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow{parent},
       ui{new Ui::MainWindow},
@@ -27,12 +25,17 @@ MainWindow::MainWindow(QWidget* parent)
             this, &MainWindow::pushButtonOpenArchive_clicked
             );
 
-    connect(_file_dialog, &QFileDialog::urlSelected,
+    /*connect(_file_dialog, &QFileDialog::urlSelected,
                 this, &MainWindow::urlSelected
+                );*/
+
+    connect(_file_dialog, SIGNAL(urlSelected(QUrl)),
+                this, SLOT(urlSelected(QUrl))
                 );
 
     ui->pushButtonFileDialog->setIcon(QIcon("../src/icons/Dir.png"));
-    ui->pushButtonOpenArchive->setIcon(QIcon("../src/icons/Confirm.png"));
+    ui->pushButtonFileDialog->setIcon(QIcon("../Qt_ZipViewer/src/icons/Dir.png"));
+    ui->pushButtonOpenArchive->setIcon(QIcon("../Qt_ZipViewer/src/icons/Confirm.png"));
     ui->pushButtonFileDialog->setIconSize(QSize(20, 30));
     ui->pushButtonOpenArchive->setIconSize(QSize(20, 30));
 
@@ -113,6 +116,6 @@ void MainWindow::pushButtonFileDialog_clicked()
 void MainWindow::urlSelected(const QUrl& url)
 {
     QString temp(url.path());
-    temp.remove(0, 1); // deleteing first '/'
+    //temp.remove(0, 1); // deleteing first '/'
     ui->lineEditPathToArchive->setText(temp);
 }
