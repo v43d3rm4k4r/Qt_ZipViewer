@@ -66,7 +66,6 @@ void EntriesManager::getAllEntries(Entries_t& entries)
     if (err == MZ_OK)
     {
         do {
-            qDebug() << "getAllEntries()";
             mz_zip_file* file_info = nullptr;
             if (::mz_zip_reader_entry_get_info(_zip_reader, &file_info) != MZ_OK)
             {

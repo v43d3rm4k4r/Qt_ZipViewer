@@ -5,6 +5,8 @@
 
 #include <QMessageBox>
 
+#include <QDebug>
+
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow{parent},
       ui{new Ui::MainWindow},
@@ -25,17 +27,12 @@ MainWindow::MainWindow(QWidget* parent)
             this, &MainWindow::pushButtonOpenArchive_clicked
             );
 
-    /*connect(_file_dialog, &QFileDialog::urlSelected,
-                this, &MainWindow::urlSelected
-                );*/
-
     connect(_file_dialog, SIGNAL(urlSelected(QUrl)),
                 this, SLOT(urlSelected(QUrl))
                 );
 
-    ui->pushButtonFileDialog->setIcon(QIcon("../src/icons/Dir.png"));
-    ui->pushButtonFileDialog->setIcon(QIcon("../Qt_ZipViewer/src/icons/Dir.png"));
-    ui->pushButtonOpenArchive->setIcon(QIcon("../Qt_ZipViewer/src/icons/Confirm.png"));
+    ui->pushButtonFileDialog->setIcon(QIcon(":/icons/Dir.png"));
+    ui->pushButtonOpenArchive->setIcon(QIcon(":/icons/Confirm.png"));
     ui->pushButtonFileDialog->setIconSize(QSize(20, 30));
     ui->pushButtonOpenArchive->setIconSize(QSize(20, 30));
 
@@ -96,16 +93,18 @@ void MainWindow::pushButtonOpenArchive_clicked()
     }
 
 
-    // заполняем модель
     if (_entries_model)
         delete _entries_model;
     _entries_model = new EntriesModel(entries);
 
-    // вставляем модель в представление
     ui->tableView->setModel(_entries_model);
     ui->tableView->resizeColumnsToContents();
 
-    // опционально: делаем делегат
+    QRect view_contents_rect = ui->tableView->contentsRect();
+    resize(view_contents_rect.width()+175, height());
+    setFixedWidth(width());
+
+    // TODO: опционально: делаем делегат
 }
 //=================================================================================================
 void MainWindow::pushButtonFileDialog_clicked()
