@@ -46,7 +46,6 @@ MainWindow::~MainWindow()
 //=================================================================================================
 void MainWindow::pushButtonOpenArchive_clicked()
 {
-    // проверяем путь до файла, передаём в конструктор
     QString path = ui->lineEditPathToArchive->text();
     if (path.isEmpty())
     {
@@ -103,8 +102,6 @@ void MainWindow::pushButtonOpenArchive_clicked()
     QRect view_contents_rect = ui->tableView->contentsRect();
     resize(view_contents_rect.width()+175, height());
     setFixedWidth(width());
-
-    // TODO: опционально: делаем делегат
 }
 //=================================================================================================
 void MainWindow::pushButtonFileDialog_clicked()
